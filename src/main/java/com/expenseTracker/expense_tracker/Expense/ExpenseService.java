@@ -1,6 +1,5 @@
 package com.expenseTracker.expense_tracker.Expense;
 import com.expenseTracker.expense_tracker.Security.ExpenseData;
-import com.expenseTracker.expense_tracker.Security.ExpenseRequest;
 import com.expenseTracker.expense_tracker.User.User;
 import com.expenseTracker.expense_tracker.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
