@@ -10,17 +10,26 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+
     @PostMapping("/register")
-    public void register(@RequestParam String email,
-                         @RequestParam String password,
-                         @RequestParam String firstName,
-                         @RequestParam String lastName){
-        userService.registerUser(email, password, firstName, lastName);
+    public void register(@RequestBody RegisterRequest registerRequest){
+        userService.registerUser(
+                registerRequest.getEmail(),
+                registerRequest.getPassword(),
+                registerRequest.getFirstName(),
+                registerRequest.getLastName()
+        );
     }
 
-//    @PostMapping("/login")
-//    public boolean login(@RequestParam String email, @RequestParam String password){
-//        return authService.authenticate(email, password);
-//    }
+    @PostMapping("/login")
+    public String login(@RequestBody LoginRequest loginRequest){
+        boolean authenticated = userService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
+        if(authenticated){
+            return "Login successful";
+        }else {
+            return "Invalid email or password";
+        }
+    }
+
 }
 

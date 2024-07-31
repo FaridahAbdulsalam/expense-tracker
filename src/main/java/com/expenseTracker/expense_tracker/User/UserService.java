@@ -15,7 +15,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
 
-    public User registerUser(String email, String password, String firstName, String lastName) {
+    public void registerUser(String email, String password, String firstName, String lastName) {
         Optional<User> existingUser = userRepository.findByEmail(email);
         if(existingUser.isPresent()){
             throw new RuntimeException("User already exists");
@@ -26,8 +26,12 @@ public class UserService {
                 .firstName(firstName)
                 .lastName(lastName)
                 .build();
-        return userRepository.save(newUser);
+        userRepository.save(newUser);
     }
 
 
+    public boolean authenticate(String email, String password) {
+        Optional<User> userFound = userRepository.findByEmail(email);
+       return userFound.isPresent() && passwordEncoder.matches(password, userFound.get().getPassword());
+    }
 }

@@ -16,6 +16,6 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
                                              @Param("startDate") LocalDate startDate,
                                              @Param("endDate") LocalDate endDate);
 
-    @Query("SELECT e FROM Expense e WHERE e.user.id = :userId AND e.vendor = :vendor")
-    List<Expense> findByUserIdAndVendor(@Param("userId") Long userId, @Param("vendor") String vendor);
+    @Query("SELECT e FROM Expense e WHERE e.user.id = :userId AND e.category = :category")
+    List<Expense> findByUserIdAndCategory(@Param("userId") Long userId, @Param("category") String category);
 }
